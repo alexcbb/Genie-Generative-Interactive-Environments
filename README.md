@@ -5,7 +5,10 @@ I'm currently trying to find people interested in reproducing the papers results
 Don't hesitate to contact me to work together on it : alexandre.chapin@ec-lyon.fr
 
 
-Citation :
+
+## Citing this work
+This project builds upon the work from Google DeepMind's research team :
+```
 @misc{bruce2024genie,
       title={Genie: Generative Interactive Environments}, 
       author={Jake Bruce and Michael Dennis and Ashley Edwards and Jack Parker-Holder and Yuge Shi and Edward Hughes and Matthew Lai and Aditi Mavalankar and Richie Steigerwald and Chris Apps and Yusuf Aytar and Sarah Bechtle and Feryal Behbahani and Stephanie Chan and Nicolas Heess and Lucy Gonzalez and Simon Osindero and Sherjil Ozair and Scott Reed and Jingwei Zhang and Konrad Zolna and Jeff Clune and Nando de Freitas and Satinder Singh and Tim Rocktäschel},
@@ -14,3 +17,8 @@ Citation :
       archivePrefix={arXiv},
       primaryClass={cs.LG}
 }
+```
+
+## License
+This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
+
