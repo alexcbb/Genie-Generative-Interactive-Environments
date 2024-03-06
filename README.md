@@ -4,7 +4,14 @@ This repo aims to reproduce and open the results obtained from "Generative Inter
 I'm currently trying to find people interested in reproducing the papers results at a smaller scale.
 Don't hesitate to contact me to work together on it : alexandre.chapin@ec-lyon.fr
 
-
+## TODO list :
+- [ ] Implement the latent action model
+- [ ] Implement the video tokenizer
+- [ ] Implement the dynamics model
+- [ ] Prepare the training dataset
+- [ ] Prepare the training pipeline
+- [ ] Prepare the evaluation pipeline
+- [ ] Prepare visualisation/probing scripts
 
 ## Citing this work
 This project builds upon the work from Google DeepMind's research team :
