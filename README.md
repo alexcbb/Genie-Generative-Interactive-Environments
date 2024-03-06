@@ -1,4 +1,4 @@
-# OPEN-Genie-Generative-Interactive-Environments
+# Unofficial Genie : Generative Interactive Environments
 This repo aims to reproduce and open the results obtained from "Generative Interactive Environments" of Google DeepMind.
 
 I'm currently trying to find people interested in reproducing the papers results at a smaller scale.
