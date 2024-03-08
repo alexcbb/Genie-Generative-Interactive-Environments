@@ -1,7 +1,7 @@
 # Introduction
 Welcome to our unofficial reimplementation of GENIE paper project.
 
-We are contributing to reimplement this amazing method in order to make it accessible to the community and make it possible to reuse it for further purposes?+.
+We are contributing to reimplement this amazing method in order to make it accessible to the community and make it possible to reuse it for further purposes.
 
 ## Contribution types
 
@@ -29,10 +29,4 @@ If the feature you search is not already implemented, ask for it in the issue se
 
 ### Test cases:
 To keep the project working as it should, we welcome any testing contribution to make sure that every bricks are working great together.
-If you fall into an error that has not been yet covered by a test, it means that we needs your contribution. 
-
-**Need inspiration?** [1] [Angular](https://github.com/angular/material/blob/master/.github/CONTRIBUTING.md#submit) [2] [Node.js](https://github.com/nodejs/node/blob/master/CONTRIBUTING.md#step-3-commit)
-
-### Explain if you use any labeling conventions for issues.
-
-**Need inspiration?** [1] [StandardIssueLabels](https://github.com/wagenet/StandardIssueLabels#standardissuelabels) [2] [Atom](https://github.com/atom/atom/blob/master/CONTRIBUTING.md#issue-and-pull-request-labels)
+If you fall into an error that has not been yet covered by a test, it means that we needs your contribution.
