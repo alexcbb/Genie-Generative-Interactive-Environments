@@ -1,12 +1,12 @@
 # Introduction
 Welcome to our unofficial reimplementation of GENIE paper project.
 
-We are contributing to reimplement this amazing method in order to make it accessible to the community and make it possible to reuse it for further purposes.
+We are wanting to reimplement this amazing method in order to make it accessible to the community and make it possible to reuse it for further purposes.
 
 ## Contribution types
 
 We are open to any contribution : improving documentation, model implementations/corrections, new features, bugs fixing, optimization,...
-If the feature you search is not already implemented, ask for it in the issue section and we will let any contributor that wants to work on it. 
+If the feature you search is not already implemented or in the TODO list, ask for it in the issue section of the repo.
 
 ### Bug Fixes:
 1. If you find a bug please submit a GitHub issue.
@@ -30,3 +30,6 @@ If the feature you search is not already implemented, ask for it in the issue se
 ### Test cases:
 To keep the project working as it should, we welcome any testing contribution to make sure that every bricks are working great together.
 If you fall into an error that has not been yet covered by a test, it means that we needs your contribution.
+
+## Coding style
+The best practice would be to follow Google's guideline : https://google.github.io/styleguide/pyguide.html 

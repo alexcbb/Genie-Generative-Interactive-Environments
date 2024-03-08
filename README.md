@@ -4,14 +4,51 @@ This repo aims to reproduce and open the results obtained from "Generative Inter
 I'm currently trying to find people interested in reproducing the papers results at a smaller scale.
 Don't hesitate to contact me to work together on it : alexandre.chapin@ec-lyon.fr
 
+## Installation
+Create a Python venv or a Conda environment using Python 3.10. Inside of the environment install `torch` and `torchivision` using the instructions matching your system as listed on the [Pytorch website](https://pytorch.org/).
+
+Then install the remaining dependencies:
+```
+python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+### Unit tests 
+Run the tests using :
+```
+pytest tests/
+```
+
+While the project will grow, more test will be added and you'll maybe need to just select a subset of tests related to the changes you made by using the `-k` option of `pytest`. Running tests in parallel (in the example 4 processes) with the `-n` option may help :
+
+```
+pytest -k "substring-to-match" -n 4 tests/
+```
+
+
 ## TODO list :
-- [ ] Implement the latent action model
-- [ ] Implement the video tokenizer
-- [ ] Implement the dynamics model
+### Latent Action Model (LAM)
+- [ ] Create the ST-Transformer layers
+- [ ] Implement VQ-VAE objective
+- [ ] COmbine model parts to get the final LAM
+### Video Tokenizer (VT)
+- [ ] Prepare VQ-VAE of video
+- [ ] Prepare the ST-ViViT version
+- [ ] Combine different layers for the final VT
+### Dynamic model (DM)
+- [ ] Implement the Decoder-only Mask-GiT
+### Training
 - [ ] Prepare the training dataset
 - [ ] Prepare the training pipeline
 - [ ] Prepare the evaluation pipeline
 - [ ] Prepare visualisation/probing scripts
+
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Authors 
+- **Alexandre Chapin**
+
+See also the list of contributors who participated in this project.
 
 ## Citing this work
 This project builds upon the work from Google DeepMind's research team :
@@ -25,6 +62,9 @@ This project builds upon the work from Google DeepMind's research team :
       primaryClass={cs.LG}
 }
 ```
+## Acknowledgment
+This codebase is built upon existing publicly available codes. We have specifically modified the following repos into this project: 
+- https://github.com/xumingxingsjtu/STTN
 
 ## License
 This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
