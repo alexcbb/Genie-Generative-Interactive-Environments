@@ -63,13 +63,9 @@ pytest -k "substring-to-match" -n 4 tests/
 ├── genie
 │   ├── dataset
 │   ├── models
-│   │   ├── ae                     
-│   │   │   ├── imagebase
-│   │   │   │   ├── vae
-│   │   │   │   └── vqvae
-│   │   │   └── videobase
-│   │   │       ├── vae
-│   │   │       └── vqvae
+│   │   ├── ae      
+│   │   │   ├── vae
+│   │   │   └── vqvae
 │   │   ├── stt              
 │   │   │   ├── vision_transformer      
 │   │   │   ├── mask_git          
