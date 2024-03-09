@@ -1,8 +1,7 @@
 # Unofficial Genie : Generative Interactive Environments
 [[Project Page]]()
 
-[![slack badge](https://img.shields.io/badge/Discord-join-blueviolet?logo=discord&amp)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/alexcbb/Genie-Generative-Interactive-Environments/LICENSE) 
+[![License](https://img.shields.io/badge/License-MIT-yellow)]([https://github.com/alexcbb/Genie-Generative-Interactive-Environments/LICENSE](https://github.com/alexcbb/Genie-Generative-Interactive-Environments/blob/main/LICENSE)) 
 
 ## 💪 Goal
 This repo aims to reproduce and open the results obtained from "Generative Interactive Environments" of Google DeepMind.
