@@ -1,10 +1,18 @@
 # Unofficial Genie : Generative Interactive Environments
+[[Project Page]]()
+
+[![License](https://img.shields.io/badge/License-MIT-yellow)]([https://github.com/alexcbb/Genie-Generative-Interactive-Environments/LICENSE](https://github.com/alexcbb/Genie-Generative-Interactive-Environments/blob/main/LICENSE)) 
+
+## 💪 Goal
 This repo aims to reproduce and open the results obtained from "Generative Interactive Environments" of Google DeepMind.
 
 I'm currently trying to find people interested in reproducing the papers results at a smaller scale.
 Don't hesitate to contact me to work together on it : alexandre.chapin@ec-lyon.fr
 
-## Installation
+## 📰 News
+**[2024.03.09]** Beginning of the project
+
+## 🛠️ Installation
 Create a Python venv or a Conda environment using Python 3.10. Inside of the environment install `torch` and `torchivision` using the instructions matching your system as listed on the [Pytorch website](https://pytorch.org/).
 
 Then install the remaining dependencies:
@@ -12,7 +20,7 @@ Then install the remaining dependencies:
 python -m pip install -r requirements.txt
 python -m pip install -e .
 ```
-### Unit tests 
+### 🔎 Unit tests 
 Run the tests using :
 ```
 pytest tests/
@@ -24,8 +32,10 @@ While the project will grow, more test will be added and you'll maybe need to ju
 pytest -k "substring-to-match" -n 4 tests/
 ```
 
-
-## TODO list :
+## ✅ TODO list :
+### Setup the codebase
+- [x] Create README
+- [ ] Prepare issues labels
 ### Latent Action Model (LAM)
 - [ ] Create the ST-Transformer layers
 - [ ] Implement VQ-VAE objective
@@ -42,15 +52,33 @@ pytest -k "substring-to-match" -n 4 tests/
 - [ ] Prepare the evaluation pipeline
 - [ ] Prepare visualisation/probing scripts
 
-## Contributing
+### Conduct experiments
+- [ ] Train the model on other datasets
+
+## 📂 Repo structure (WIP)
+```
+├── README.md
+├── CONTRIBUTION.md
+├── scripts                        -> All scripts.
+├── genie
+│   ├── dataset
+│   ├── models
+│   │   ├── ae      
+│   │   │   ├── vae
+│   │   │   └── vqvae
+│   │   ├── stt              
+│   │   │   ├── vision_transformer      
+│   │   │   ├── mask_git          
+│   │   │   └── st_transformer
+│   │   └── layers
+│   ├── train                      -> Training code
+│   └── utils
+```
+
+## 🤝Contributing
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Authors 
-- **Alexandre Chapin**
-
-See also the list of contributors who participated in this project.
-
-## Citing this work
+## 👍 Acknowledgment
 This project builds upon the work from Google DeepMind's research team :
 ```
 @misc{bruce2024genie,
@@ -62,10 +90,9 @@ This project builds upon the work from Google DeepMind's research team :
       primaryClass={cs.LG}
 }
 ```
-## Acknowledgment
-This codebase is built upon existing publicly available codes. We have specifically modified the following repos into this project: 
+We also built upon the following repositories for the different parts of our models :
 - https://github.com/xumingxingsjtu/STTN
 
-## License
+## 🔒License
 This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
 
