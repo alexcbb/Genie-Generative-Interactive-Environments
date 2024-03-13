@@ -18,7 +18,6 @@ Create a Python venv or a Conda environment using Python 3.10. Inside of the env
 Then install the remaining dependencies:
 ```
 python -m pip install -r requirements.txt
-python -m pip install -e .
 ```
 ### 🔎 Unit tests 
 Run the tests using :

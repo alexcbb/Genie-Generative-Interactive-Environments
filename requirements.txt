@@ -1,0 +1,7 @@
+wandb
+numpy
+torchvision
+torch
+pillow
+tqdm
+einops
