@@ -71,7 +71,6 @@ pytest -k "substring-to-match" -n 4 tests/
 │   │   │   ├── vae
 │   │   │   └── vqvae
 │   │   ├── stt              
-│   │   │   ├── vision_transformer      
 │   │   │   ├── mask_git          
 │   │   │   └── st_transformer
 │   │   ├── video_tokenizer
@@ -98,7 +97,7 @@ This project builds upon the work from Google DeepMind's research team :
 }
 ```
 We also built upon the following repositories for the different parts of our models :
-- Spatio-Temporal Transformer : https://github.com/xumingxingsjtu/STTN
+- Spatio-Temporal Transformer : https://github.com/xumingxingsjtu/STTN && https://github.com/huggingface/pytorch-image-models/tree/main
 - VQ-VAE : https://github.com/rosinality/vq-vae-2-pytorch/tree/master 
 
 ## 🔒License
