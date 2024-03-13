@@ -35,11 +35,12 @@ pytest -k "substring-to-match" -n 4 tests/
 ## ✅ TODO list :
 ### Setup the codebase
 - [x] Create README
-- [ ] Prepare issues labels
+- [x] Prepare issues labels
 ### Latent Action Model (LAM)
-- [ ] Create the ST-Transformer layers
-- [ ] Implement VQ-VAE objective
-- [ ] COmbine model parts to get the final LAM
+- [x] Prepare the original Vision Transformer
+- [ ] Combine the ViT with Temporal (For ST-Tranformer)
+- [ ] Prepare the VQ-VAE objective
+- [ ] Combine model parts to get the final LAM
 ### Video Tokenizer (VT)
 - [ ] Prepare VQ-VAE of video
 - [ ] Prepare the ST-ViViT version
@@ -51,6 +52,10 @@ pytest -k "substring-to-match" -n 4 tests/
 - [ ] Prepare the training pipeline
 - [ ] Prepare the evaluation pipeline
 - [ ] Prepare visualisation/probing scripts
+### Documentation
+- [ ] Document the Vision Transformer code
+- [ ] Document the VQ-VAE code
+- [ ] Document the ST-Transformer code
 
 ### Conduct experiments
 - [ ] Train the model on other datasets
@@ -70,7 +75,10 @@ pytest -k "substring-to-match" -n 4 tests/
 │   │   │   ├── vision_transformer      
 │   │   │   ├── mask_git          
 │   │   │   └── st_transformer
-│   │   └── layers
+│   │   ├── video_tokenizer
+│   │   ├── dynamic_model
+│   │   ├── latent_action_model
+│   │   └── genie_model
 │   ├── train                      -> Training code
 │   └── utils
 ```
@@ -91,7 +99,8 @@ This project builds upon the work from Google DeepMind's research team :
 }
 ```
 We also built upon the following repositories for the different parts of our models :
-- https://github.com/xumingxingsjtu/STTN
+- Spatio-Temporal Transformer : https://github.com/xumingxingsjtu/STTN
+- VQ-VAE : https://github.com/rosinality/vq-vae-2-pytorch/tree/master 
 
 ## 🔒License
 This project is licensed under the MIT license - see the [LICENSE](LICENSE) file for details.
