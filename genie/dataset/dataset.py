@@ -1,10 +1,9 @@
-#python 3.10.11 
-#pip install gym
-
 import gym
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+#python 3.10.11 
+#pip install gym
 
 
 # A first attemp to collect data from the CoinRun environment as indicated in the GENIE paper page 26.
