@@ -1,8 +1,11 @@
 import torch
 import torch.nn as nn
 from torch.nn.init import trunc_normal_
-from timm.models.layers import DropPath, Mlp, PatchEmbed
+from timm.layers import DropPath, Mlp, PatchEmbed
 import math
+
+# NOTE timm.models.layers is DEPRECATED, please use timm.layers, this is here to reduce breakages in transition
+
 
 class Attention(nn.Module):
     def __init__(
@@ -202,6 +205,8 @@ class SpatioTemporalTransformer(nn.Module):
         self.num_heads = num_heads
         self.depth = depth 
         self.num_frames = num_frames
+
+
         self.patch_embed = PatchEmbed(
             img_size=img_size[0], patch_size=patch_size, in_chans=in_chans, embed_dim=embed_dim)
         self.num_patches = self.patch_embed.num_patches
@@ -214,13 +219,12 @@ class SpatioTemporalTransformer(nn.Module):
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depth)]  # stochastic depth decay rule
 
         # TODO : in the paper they remove
-        # Spatial Transformer Blocks
         self.spatial_blocks = nn.ModuleList([
             SpatialBlock(
                 dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, qk_scale=qk_scale,
                 drop=drop_rate, attn_drop=attn_drop_rate, drop_path=dpr[i], norm_layer=norm_layer)
             for i in range(depth)])
-        # Temporal Transformer Blocks
+        
         self.temporal_blocks = nn.ModuleList([
             TemporalBlock(
                 dim=embed_dim, num_heads=num_heads, mlp_ratio=mlp_ratio, qkv_bias=qkv_bias, qk_scale=qk_scale,
@@ -271,9 +275,11 @@ class SpatioTemporalTransformer(nn.Module):
             return patch_pos_embed
 
     def prepare_tokens(self, x):
-        B, nc, w, h = x.shape
-        x = self.patch_embed(x)
-        x = x.flatten(2).transpose(1, 2)
+
+        B, t, c, h, w = x.shape  # batch, time, chanels, H, W
+        x = x.reshape(B*t, c, h, w)  # reshape 'b t c h w -> (b t) c h w'
+        x = self.patch_embed(x) 
+        x = x.flatten(2).transpose(1, 2)  # reshape '(b t) p c -> (b t) p c'
 
         cls_tokens = self.cls_token.expand(B, -1, -1)
         x = torch.cat((cls_tokens, x), dim=1)
@@ -284,10 +290,20 @@ class SpatioTemporalTransformer(nn.Module):
 
     def forward(self, x, return_all_tokens=None):
         x = self.prepare_tokens(x)
-
-        for blk in self.blocks:
+        # Spatial_attention 
+        for blk in self.spatial_blocks:
             x = blk(x)
         x = self.norm(x)
+
+        B, T, C = x.shape
+        x = x.reshape(B, -1, T, C)  # reshape '(b t) p c -> (b p) t c'
+
+        # Temporal_attention 
+        for blk in self.temporal_blocks:
+            x = blk(x)
+
+        x = self.norm(x)
+        # TODO : ADD a FFW 
 
         return_all_tokens = self.return_all_tokens if \
             return_all_tokens is None else return_all_tokens
