@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.nn.init import trunc_normal_
+import timm
 from timm.layers import DropPath, Mlp, PatchEmbed
 import math
 
@@ -14,14 +15,13 @@ class Attention(nn.Module):
             num_heads: int = 8, 
             qkv_bias: bool = False, 
             qk_scale = None,
-            attn_drop: float = 0., 
+            attn_drop: float = 0.,  
             proj_drop: float = 0.
         ):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
         self.scale = qk_scale or head_dim ** -0.5
-
         self.q = nn.Linear(dim, dim, bias=qkv_bias)
         self.k = nn.Linear(dim, dim, bias=qkv_bias)
         self.v = nn.Linear(dim, dim, bias=qkv_bias)
@@ -182,7 +182,7 @@ class SpatioTemporalTransformer(nn.Module):
     """ """
     def __init__(
             self, 
-            img_size=[224], 
+            img_size=[64], 
             patch_size=16, 
             in_chans=3, 
             num_classes=0, 
@@ -212,7 +212,7 @@ class SpatioTemporalTransformer(nn.Module):
         self.num_patches = self.patch_embed.num_patches
 
         # TODO : it would requiere attention on whether to use the cls_token or not for the transformer
-        # self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
         self.pos_embed = nn.Parameter(torch.zeros(1, self.num_patches, embed_dim))
 
         self.pos_drop = nn.Dropout(p=drop_rate)
@@ -257,8 +257,8 @@ class SpatioTemporalTransformer(nn.Module):
         class_pos_embed = self.pos_embed[:, 0]
         patch_pos_embed = self.pos_embed[:, 1:]
         dim = x.shape[-1]
-        w0 = w // self.patch_embed.patch_size
-        h0 = h // self.patch_embed.patch_size
+        w0 = w // 16
+        h0 = h // 16
         # we add a small number to avoid floating point error in the interpolation
         # see discussion at https://github.com/facebookresearch/dino/issues/8
         w0, h0 = w0 + 0.1, h0 + 0.1
@@ -278,31 +278,33 @@ class SpatioTemporalTransformer(nn.Module):
 
         B, t, c, h, w = x.shape  # batch, time, chanels, H, W
         x = x.reshape(B*t, c, h, w)  # reshape 'b t c h w -> (b t) c h w'
-        x = self.patch_embed(x) 
-        x = x.flatten(2).transpose(1, 2)  # reshape '(b t) p c -> (b t) p c'
+        x = self.patch_embed(x)
+        spacial_x = x
+        temporal_x = x
+        cls_tokens = self.cls_token.expand(B*t, -1, -1)
+        spacial_x = torch.cat((cls_tokens, spacial_x), dim=1)
 
-        cls_tokens = self.cls_token.expand(B, -1, -1)
-        x = torch.cat((cls_tokens, x), dim=1)
+        spacial_x = spacial_x + self.interpolate_pos_encoding(spacial_x, w, h)
+        spacial_x = self.pos_drop(spacial_x)
 
-        x = x + self.interpolate_pos_encoding(x, w, h)
+        temporal_x = temporal_x.unflatten(0, (B, t))
+        temporal_x =temporal_x.permute(0, 2, 1, 3)
+        temporal_x =temporal_x.flatten(0, 1)
+        temporal_x = self.pos_drop(temporal_x)
 
-        return self.pos_drop(x)
-
+        return spacial_x , temporal_x
+    
     def forward(self, x, return_all_tokens=None):
-        x = self.prepare_tokens(x)
+        spacial_x, temporal_x = self.prepare_tokens(x)
         # Spatial_attention 
         for blk in self.spatial_blocks:
-            x = blk(x)
-        x = self.norm(x)
+            spacial_x = blk(spacial_x)
+        spacial_x = self.norm(spacial_x)
 
-        B, T, C = x.shape
-        x = x.reshape(B, -1, T, C)  # reshape '(b t) p c -> (b p) t c'
-
-        # Temporal_attention 
         for blk in self.temporal_blocks:
-            x = blk(x)
+            temporal_x = blk(temporal_x)
+        temporal_x = self.norm(temporal_x)
 
-        x = self.norm(x)
         # TODO : ADD a FFW 
 
         return_all_tokens = self.return_all_tokens if \
